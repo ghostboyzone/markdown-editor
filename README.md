@@ -8,6 +8,15 @@ Use `Electron` to build a Markdown Editor
 * Sync to cloud
 * Share with others
 
+## MileStone
+
+* [ ] Edit File
+* [ ] Sync to cloud
+* [ ] Share with others
+* [ ] Add folder
+* [ ] Theme support
+* [ ] Auto-save support
+
 ## Refer
 
 ### Icon
