@@ -1,0 +1,23 @@
+{
+  "name": "markdown-editor",
+  "version": "1.0.0",
+  "description": "Markdown Editor",
+  "main": "src/js/electron/main.js",
+  "scripts": {
+    "start": "/Applications/Electron.app/Contents/MacOS/Electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "author": "ghostboyzone",
+  "license": "MIT",
+  "dependencies": {
+    "markdown-it": "^8.4.2"
+  },
+  "build": {
+    "appId": "com.ghostboyzone.mdeditor",
+    "mac": {
+      "category": "MdEditor.app-category.education"
+    }
+  }
+}

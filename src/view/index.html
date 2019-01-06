@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Editor~</title>
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <link rel="stylesheet" type="text/css" href="../css/markdown.css">
+</head>
+
+<body>
+    <div id="main-container">
+        <div id="left-panel">
+            <textarea id="write" oninput="this.editor.update()" placeholder="Write MarkDown Here..." rows="5"></textarea>
+        </div>
+        <div id="resize-panel"></div>
+        <div id="right-panel">
+            <div style="text-align: center">
+                <span style="font-size: 10px; padding: 5px 5px;">预览</span>
+            </div>
+            <div id="preview"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../node_modules/markdown-it/dist/markdown-it.js"></script>
+    <script type="text/javascript" src="../js/tab.js"></script>
+    <script type="text/javascript" src="../js/index.js"></script>
+</body>
+
+</html>
