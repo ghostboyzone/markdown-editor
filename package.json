@@ -19,5 +19,9 @@
     "mac": {
       "category": "MdEditor.app-category.education"
     }
+  },
+  "devDependencies": {
+    "electron": "^4.0.1",
+    "electron-builder": "^20.38.4"
   }
 }
