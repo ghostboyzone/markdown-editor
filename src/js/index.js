@@ -5,11 +5,13 @@ var $ = function(id) { return document.getElementById(id); };
 function calcWidth(rate) {
     var totalWidth = $("main-container").clientWidth;
     var resizeWidth = $("resize-panel").clientWidth;
-    var leftWidth = Math.floor((totalWidth - resizeWidth) * rate);
-    var rightWidth = totalWidth - resizeWidth - leftWidth;
+    var leftWidth = Math.floor((totalWidth - resizeWidth * 0.5) * rate);
+    var rightWidth = totalWidth - resizeWidth - leftWidth - 1;
+
+    console.log(totalWidth, resizeWidth, leftWidth, rightWidth)
     $("left-panel").style.width = leftWidth + "px";
     $("right-panel").style.width = rightWidth + "px";
-    $("right-panel").style.marginLeft = (leftWidth + resizeWidth) + "px";
+    // $("right-panel").style.marginLeft = (leftWidth + resizeWidth) + "px";
 }
 window.onload = function() {
     calcWidth(window.leftPanelRate);
@@ -29,7 +31,7 @@ window.onload = function() {
             // det = endX - startX
             var totalWidth = $("main-container").clientWidth;
             var resizeWidth = $("resize-panel").clientWidth;
-            var rate = endX / (2 * Math.floor((totalWidth - resizeWidth) * 0.5))
+            var rate = endX / (2 * Math.floor((totalWidth - resizeWidth * 0.5) * 0.5))
             if (rate < 0.2) {
                 window.leftPanelRate = 0.2;
             } else if (rate > 0.8) {

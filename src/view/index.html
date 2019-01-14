@@ -8,16 +8,19 @@
     <link rel="stylesheet" type="text/css" href="../css/markdown.css">
 </head>
 
-<body>
-    <div id="main-container">
-        <div id="left-panel">
-            <textarea id="write" oninput="this.editor.update()" placeholder="Write MarkDown Here..." rows="5"></textarea>
+<body style="height: 100vh; overflow: hidden;">
+    <div id="header">
+        Menu | Edit | View | Help
+    </div>
+    <div id="main-container" style="height: calc(100vh - 20px);">
+        <div id="left-panel" style="width: calc(50% - 1.5px);">
+            <textarea id="write" oninput="this.editor.update()" placeholder="Write MarkDown Here..."></textarea>
         </div>
-        <div id="resize-panel"></div>
-        <div id="right-panel">
-            <div style="text-align: center">
+        <div id="resize-panel" style="width: 3px"></div>
+        <div id="right-panel" style="width: calc(50% - 1.5px);">
+            <!-- <div style="text-align: center">
                 <span style="font-size: 10px; padding: 5px 5px;">预览</span>
-            </div>
+            </div> -->
             <div id="preview"></div>
         </div>
     </div>

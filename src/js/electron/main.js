@@ -12,7 +12,7 @@ function createWindow() {
   // menu.append(new MenuItem({ label: 'MenuItem2', type: 'checkbox', checked: true }))
 
     // 创建浏览器窗口。
-    win = new BrowserWindow({ width: 800, height: 600, icon: '../../img/233.png' })
+    win = new BrowserWindow({ backgroundColor: '#fff', width: 800, height: 600, icon: '../../img/233.png', titleBarStyle: 'hidden' })
 
     // win.setProgressBar(0.5)
 
@@ -20,7 +20,7 @@ function createWindow() {
     win.loadFile("src/view/index.html")
 
     // 打开开发者工具
-    win.webContents.openDevTools()
+    // win.webContents.openDevTools()
 
     // 当 window 被关闭，这个事件会被触发。
     win.on('closed', () => {
