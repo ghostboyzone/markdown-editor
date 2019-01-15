@@ -21,15 +21,14 @@
   width: 100vw;
   background: #f581c1;
   color: white;
-  padding-left: 60px;
-  padding-right: 8px;
   font-size: 12px;
   line-height: 20px;
+  text-align: center;
 }
 
 #left-panel {
   position: relative;
-  font-size: 16px;
+  font-size: 12px;
   cursor: auto;
   float: left;
   height: 100%;
@@ -37,7 +36,7 @@
 }
 #write {
   padding: 8px 8px;
-  font-size: 16px;
+  font-size: 12px;
   outline: none;
   border: none;
   resize: none;
@@ -60,4 +59,5 @@
 }
 #preview {
   padding: 8px 8px;
+  font-size: 12px;
 }

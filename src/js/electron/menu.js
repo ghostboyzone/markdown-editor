@@ -8,7 +8,8 @@ function about() {
 
 function Open() {
     dialog.showOpenDialog(
-    { properties: ['openFile', 'openDirectory'] }, 
+    { properties: ['openFile', 'openDirectory'],
+      filters: [{name: 'Markdown', extensions: ['md', 'markdown'] }] }, 
     function(filePaths) {
         if (typeof filePaths == 'undefined' || filePaths.length == 0) {
             console.log('file empty')
@@ -16,6 +17,14 @@ function Open() {
         }
         console.log("get file: " + filePaths[0])
 
+        var winId = BrowserWindow.getFocusedWindow().id;
+        let win = BrowserWindow.fromId(winId);
+
+        win && win.webContents.send('file_data', {
+            'file_path': filePaths[0],
+        })
+
+        /*
         fs.readFile(filePaths[0], 'utf8', function(err, data){
             console.log(data);
             
@@ -27,7 +36,15 @@ function Open() {
                 'file_data': data
             })
         });
+        */
     })
+}
+
+function Save() {
+    var winId = BrowserWindow.getFocusedWindow().id;
+    let win = BrowserWindow.fromId(winId);
+
+    win && win.webContents.send('save_file', {})
 }
 
 function aaa() {
@@ -48,11 +65,11 @@ const template = [
     submenu: [
       { label: 'New'},
       { type: 'separator' },
-      { label: 'Open...', click: Open},
+      { label: 'Open...', accelerator: 'CmdOrCtrl+O', click: Open},
       { label: 'Open Recent'},
       { type: 'separator' },
       { label: 'Close'},
-      { label: 'Save'},
+      { label: 'Save', accelerator: 'CmdOrCtrl+S', click: Save},
       { label: 'Rename'},
       { type: 'separator' },
       { label: 'Share'},
