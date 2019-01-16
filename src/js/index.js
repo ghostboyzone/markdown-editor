@@ -101,20 +101,26 @@ window.currFile = ''
 window.currFileOrgData = ''
 
 const ipc = require('electron').ipcRenderer;
-ipc.on('file_data', (event, message) => {
-    console.log(message)
-
+ipc.on('main:file_data', (event, message) => {
     readAndShow(message.file_path)
-
-    // window.currFileOrgData = message.file_data
-    // $("write").value = message.file_data
-    // $("write").editor.update()
-    // window.currFile = message.file_path
-    // document.title = message.file_path
 })
 
-ipc.on('save_file', (event, message) => {
+ipc.on('main:save_file', (event, message) => {
     saveFile()
+})
+
+ipc.on('main:save_file_success', (event, message) => {
+    window.currFile = message.file_path
+    window.currFileOrgData = message.file_data
+    $("write").editor.update()
+})
+
+ipc.on('main:new_file', (event, message) => {
+    console.log('new file')
+    window.currFile = ''
+    window.currFileOrgData = ''
+    $("write").value = ''
+    $("write").editor.update()
 })
 
 document.addEventListener('drop', function(e) {
@@ -145,17 +151,9 @@ function readAndShow(filePath) {
 }
 
 function saveFile() {
-    if (!window.currFile) {
-        console.log("empty file")
-        return
-    }
     var data = $("write").value
-    fs.writeFile(window.currFile, data, function(err) {
-        if (err) {
-            return console.error(err)
-        }
-        window.currFileOrgData = data
-        $("write").editor.update()
-        console.log("write success")
+    ipc.send('renderer:save_file', {
+        file_data: data,
+        file_path: !window.currFile ? '' : window.currFile
     })
 }

@@ -6,6 +6,15 @@ function about() {
 
 }
 
+function NewFile() {
+  // TODO
+  console.log(BrowserWindow.getAllWindows())
+  var winId = BrowserWindow.getFocusedWindow().id;
+  let win = BrowserWindow.fromId(winId);
+
+  win && win.webContents.send('main:new_file', {})
+}
+
 function Open() {
     dialog.showOpenDialog(
     { properties: ['openFile', 'openDirectory'],
@@ -20,23 +29,9 @@ function Open() {
         var winId = BrowserWindow.getFocusedWindow().id;
         let win = BrowserWindow.fromId(winId);
 
-        win && win.webContents.send('file_data', {
+        win && win.webContents.send('main:file_data', {
             'file_path': filePaths[0],
         })
-
-        /*
-        fs.readFile(filePaths[0], 'utf8', function(err, data){
-            console.log(data);
-            
-            var winId = BrowserWindow.getFocusedWindow().id;
-            let win = BrowserWindow.fromId(winId);
-
-            win && win.webContents.send('file_data', {
-                'file_path': filePaths,
-                'file_data': data
-            })
-        });
-        */
     })
 }
 
@@ -44,18 +39,14 @@ function Save() {
     var winId = BrowserWindow.getFocusedWindow().id;
     let win = BrowserWindow.fromId(winId);
 
-    win && win.webContents.send('save_file', {})
-}
-
-function aaa() {
-  console.log(233)
+    win && win.webContents.send('main:save_file', {})
 }
 
 const template = [
   {
     label: 'Main',
     submenu: [
-      { label: 'About', click: aaa },
+      { label: 'About' },
       { type: 'separator' },
       { label: 'Quit'}
     ]
@@ -63,7 +54,7 @@ const template = [
   {
     label: 'File',
     submenu: [
-      { label: 'New'},
+      { label: 'New', accelerator: 'CmdOrCtrl+N', click: NewFile},
       { type: 'separator' },
       { label: 'Open...', accelerator: 'CmdOrCtrl+O', click: Open},
       { label: 'Open Recent'},

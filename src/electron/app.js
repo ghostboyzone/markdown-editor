@@ -1,9 +1,12 @@
-const { app, Menu, MenuItem, BrowserWindow, dialog } = require('electron')
-require('./menu')
+const { app, Menu, MenuItem, BrowserWindow, dialog, ipcMain } = require('electron')
+const fs = require('fs');
+require('./app_menu')
 
 // 保持对window对象的全局引用，如果不这么做的话，当JavaScript对象被
 // 垃圾回收的时候，window对象将会自动的关闭
 let win
+
+var client = require('electron-connect').client;
 
 function createWindow() {
   // const menu = new Menu()
@@ -12,13 +15,12 @@ function createWindow() {
   // menu.append(new MenuItem({ label: 'MenuItem2', type: 'checkbox', checked: true }))
 
     // 创建浏览器窗口。
-    win = new BrowserWindow({ backgroundColor: '#fff', width: 800, height: 600, icon: '../../img/233.png', titleBarStyle: 'hidden' })
+    win = new BrowserWindow({ backgroundColor: '#fff', width: 950, height: 700, titleBarStyle: 'hidden' })
 
     // win.setProgressBar(0.5)
 
     // 然后加载应用的 index.html。
     win.loadFile("src/view/index.html")
-
     // 打开开发者工具
     // win.webContents.openDevTools()
 
@@ -29,6 +31,7 @@ function createWindow() {
         // 与此同时，你应该删除相应的元素。
         win = null
     })
+    client.create(win, {sendBounds: false});
 
     // console.log(dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }))
 }
@@ -53,6 +56,40 @@ app.on('activate', () => {
     if (win === null) {
         createWindow()
     }
+})
+
+
+ipcMain.on('renderer:save_file', (event, data) => {
+  console.log(data)
+  var filePath = data.file_path
+  if (!filePath) {
+    // no file, choose new file
+    chooseFilePath = dialog.showSaveDialog({
+      title: '保存文件',
+      filters: [
+        { name: 'All Files', extensions: ['md', 'markdown']}
+      ]
+    })
+    if (!chooseFilePath) {
+        console.log('cancel create file')
+        return
+    }
+    filePath = chooseFilePath
+    console.log('create file: ' + chooseFilePath)
+  }
+
+  fs.writeFile(filePath, data.file_data, function(err) {
+      if (err) {
+          return console.error(err)
+      }
+
+      event.sender.send('main:save_file_success', {
+        file_path: filePath,
+        file_data: data.file_data
+      })
+      console.log("write success")
+  })
+  return
 })
 
 // 在这个文件中，你可以续写应用剩下主进程代码。
