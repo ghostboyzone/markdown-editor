@@ -115,12 +115,47 @@ ipc.on('main:save_file_success', (event, message) => {
     $("write").editor.update()
 })
 
+var editor = CodeMirror.fromTextArea($("write"), {
+    lineNumbers: true,
+    textWrapping: true,
+    lineWrapping: true,
+    styleActiveLine: true,
+    tabMode: "indent",
+    width: '100%',
+    height: '100%',
+    mode:  "markdown",
+    theme: "neo",
+    indentUnit: 4,
+    highlightFormatting: true,
+    extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"}
+});
+
+editor.on('change', function(editorInstance, changes) {
+    console.log(changes)
+    editorInstance.save()
+    $("write").editor.update()
+})
+
+editor.setOption("extraKeys", {
+    Enter: "newlineAndIndentContinueMarkdownList",
+    // Tab键换成4个空格
+    Tab: function(cm) {
+        var spaces = Array(cm.getOption("indentUnit") + 1).join(" ");
+        cm.replaceSelection(spaces);
+    }
+});
+
+function setEditorData(data) {
+    editor.setValue(data)
+    $("write").value = data
+    $("write").editor.update()
+}
+
 ipc.on('main:new_file', (event, message) => {
     console.log('new file')
     window.currFile = ''
     window.currFileOrgData = ''
-    $("write").value = ''
-    $("write").editor.update()
+    setEditorData('')
 })
 
 document.addEventListener('drop', function(e) {
@@ -145,8 +180,7 @@ function readAndShow(filePath) {
     fs.readFile(filePath, 'utf8', function(err, data){
         console.log(filePath, data);
         window.currFileOrgData = data
-        $("write").value = data
-        $("write").editor.update()
+        setEditorData(data)
     });
 }
 

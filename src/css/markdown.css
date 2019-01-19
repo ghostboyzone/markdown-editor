@@ -178,7 +178,7 @@
 }
 #preview code {
   background-color: #eee8d5;
-  padding: 2px;
+  padding: 1px 4px 1px 4px;
 }
 #preview a {
   color: #b58900;
@@ -190,30 +190,51 @@
   color: #cb4b16;
 }
 #preview h1 {
-  color: #d33682;
+  color: rgb(200,0,103);
 }
 #preview h2,
 #preview h3,
 #preview h4,
 #preview h5,
 #preview h6 {
-  color: #859900;
+  color: #506bdae0;
+}
+#preview blockquote {
+  border-left: 5px solid #47ad70db;
+  padding-left: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+#preview blockquote p {
+  color: #266b43;
+}
+#preview hr {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  background: #49b2d299;
+  height: 2px;
+  border: none;
+  background-image: initial;
 }
 #preview pre {
   background-color: #fdf6e3;
   color: #657b83;
-  border: 1pt solid #93a1a1;
+  border: 1pt solid #cbd6d6;
   padding: 1em;
-  box-shadow: 5pt 5pt 8pt #eee8d5;
+  box-shadow: 5pt 5pt 8pt #efebe0;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 #preview pre code {
   background-color: #fdf6e3;
 }
 #preview h1 {
+  text-align: center;
   font-size: 2.8em;
 }
 #preview h2 {
   font-size: 2.4em;
+  border-bottom: 1px solid #eaecef;
 }
 #preview h3 {
   font-size: 1.8em;

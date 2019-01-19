@@ -26,6 +26,10 @@
   text-align: center;
 }
 
+.CodeMirror {
+  height: 100% !important;
+}
+
 #left-panel {
   position: relative;
   font-size: 15px;

@@ -6,8 +6,6 @@ require('./app_menu')
 // 垃圾回收的时候，window对象将会自动的关闭
 let win
 
-var client = require('electron-connect').client;
-
 function createWindow() {
   // const menu = new Menu()
   // menu.append(new MenuItem({ label: 'MenuItem1', click() { console.log('item 1 clicked') } }))
@@ -31,7 +29,12 @@ function createWindow() {
         // 与此同时，你应该删除相应的元素。
         win = null
     })
-    client.create(win, {sendBounds: false});
+
+    // if (process.env.noinject != 1) {
+    //   var client = require('electron-connect').client;
+    //   client.create(win, {sendBounds: false});  
+    // }
+    
 
     // console.log(dialog.showOpenDialog({ properties: ['openFile', 'openDirectory', 'multiSelections'] }))
 }

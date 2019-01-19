@@ -4,7 +4,7 @@
   "description": "Markdown Editor",
   "main": "src/electron/app.js",
   "scripts": {
-    "start": "/Applications/Electron.app/Contents/MacOS/Electron .",
+    "start": "export noinject=1 && electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pack": "electron-builder --dir",
     "dist": "electron-builder"
@@ -12,6 +12,7 @@
   "author": "ghostboyzone",
   "license": "MIT",
   "dependencies": {
+    "codemirror": "^5.42.2",
     "gulp": "^4.0.0",
     "markdown-it": "^8.4.2"
   },
@@ -25,5 +26,6 @@
     "electron": "^4.0.1",
     "electron-builder": "^20.38.4",
     "electron-connect": "^0.6.3"
-  }
+  },
+  "repository": "https://github.com/ghostboyzone/markdown-editor.git"
 }
